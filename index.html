@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>dogspetlove - Encontre um lar para nossos anjinhos</title>
+    <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+
+
+        body {
+            font-family: 'Patrick Hand', cursive;
+            background: #fff8f0;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem;
+            background-image: url("img/bg/bg1.jpg");
+            background-repeat: repeat;
+            background-size: inherit;
+            background-position: center;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #d86f50;
+            text-align: center;
+        }
+
+        p.description {
+            max-width: 600px;
+            text-align: center;
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            color: #555;
+        }
+
+        .carousel {
+            position: relative;
+            width: 90%;
+            max-width: 800px;
+            aspect-ratio: 16 / 9;
+            overflow: hidden;
+            border-radius: 1rem;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .slides {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+            width: 100%;
+        }
+
+        .slide {
+            min-width: 100%;
+            height: 100%;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 1rem;
+        }
+
+        .nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 1rem;
+        }
+
+        .arrow {
+            background: rgba(255, 255, 255, 0.7);
+            border: none;
+            padding: 0.5rem 1rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            border-radius: 50%;
+            transition: background 0.3s;
+        }
+
+        .arrow:hover {
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        .dots {
+            display: flex;
+            justify-content: center;
+            margin-top: 1rem;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #ccc;
+            margin: 0 6px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .dot.active {
+            background-color: #d86f50;
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .arrow {
+                font-size: 1.2rem;
+                padding: 0.3rem 0.6rem;
+            }
+        }
+        .adopt-btn {
+  background-color: #d86f50;
+  color: white;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  font-size: 1.2rem;
+  border-radius: 1.5rem;
+  cursor: pointer;
+  margin-top: 1.5rem;
+  transition: background 0.3s;
+}
+
+.adopt-btn:hover {
+  background-color: #b85a3e;
+}
+
+/* Modal */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 999;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.5);
+}
+
+.modal-content {
+  background-color: #fffefc;
+  margin: 10% auto;
+  padding: 2rem;
+  border: 1px solid #ddd;
+  width: 90%;
+  max-width: 500px;
+  border-radius: 1rem;
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+  font-family: 'Patrick Hand', cursive;
+  color: #333;
+}
+
+.modal-content h2 {
+  text-align: center;
+  margin-bottom: 1rem;
+  color: #d86f50;
+}
+
+.modal-content label {
+  display: block;
+  margin: 0.5rem 0 0.3rem;
+}
+
+.modal-content input,
+.modal-content textarea {
+  width: 100%;
+  padding: 0.6rem;
+  border-radius: 0.5rem;
+  border: 1px solid #ccc;
+  margin-bottom: 1rem;
+}
+
+.submit-btn {
+  background-color: #d86f50;
+  color: white;
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 1.2rem;
+  cursor: pointer;
+  font-size: 1rem;
+  display: block;
+  margin: 0 auto;
+}
+
+.submit-btn:hover {
+  background-color: #b85a3e;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 1.5rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close:hover {
+  color: #000;
+}
+
+    </style>
+</head>
+
+<body>
+
+    <h1>dogspetlove</h1>
+    <p class="description">Nossa amiga está lutando contra uma grave doença e precisa encontrar lares amorosos para seus
+        seis fiéis companheiros caninos. 💔🐶</p>
+
+    <div class="carousel">
+        <div class="slides" id="slides">
+            <div class="slide"><img src="img/dogs/dog1.jpg" alt="Cão 1"></div>
+            <div class="slide"><img src="img/dogs/dog2.jpg" alt="Cão 2"></div>
+            <div class="slide"><img src="img/dogs/dog3.jpg" alt="Cão 3"></div>
+            <div class="slide"><img src="img/dogs/dog4.jpg" alt="Cão 4"></div>
+            <div class="slide"><img src="img/dogs/dog5.jpg" alt="Cão 5"></div>
+            <div class="slide"><img src="img/dogs/dog6.jpg" alt="Cão 6"></div>
+        </div>
+
+
+          
+
+
+        <div class="nav">
+            <button class="arrow" onclick="prevSlide()">❮</button>
+            <button class="arrow" onclick="nextSlide()">❯</button>
+        </div>
+    </div>
+
+    <div style="text-align: center; margin-top: 1.5rem;">
+        <button id="adoptBtn" class="adopt-btn">🐾 Quero Adotar</button>
+    </div>
+    
+    <div id="adoptModal" class="modal">
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <h2>Formulário de Adoção</h2>
+          <form action="https://formsubmit.co/julianodiffusion@gmail.com" method="POST">
+            <input type="hidden" name="_redirect" value="http://127.0.0.1:5500/index.html?enviado=ok">
+
+            <label for="name">Nome:</label>
+            <input type="text" id="name" name="name" required>
+      
+            <label for="email">E-mail:</label>
+            <input type="email" id="email" name="email" required>
+      
+            <label for="message">Mensagem:</label>
+            <textarea id="message" name="message" rows="4" placeholder="Conte-nos por que você quer adotar! 🐶" required></textarea>
+      
+            <button type="submit" class="submit-btn">Enviar</button>
+          </form>
+          <div id="mensagem-sucesso" style="display: none; color: green; margin-top: 1rem; text-align: center;">
+            ✅ Obrigado! Sua mensagem foi enviada com sucesso.
+          </div>
+        </div>
+      </div>
+
+    <div class="dots" id="dots"></div>
+
+    <script>
+        const slides = document.getElementById('slides');
+        const totalSlides = document.querySelectorAll('.slide').length;
+        const dotsContainer = document.getElementById('dots');
+        let currentIndex = 0;
+
+        function createDots() {
+            for (let i = 0; i < totalSlides; i++) {
+                const dot = document.createElement('div');
+                dot.classList.add('dot');
+                if (i === 0) dot.classList.add('active');
+                dot.addEventListener('click', () => goToSlide(i));
+                dotsContainer.appendChild(dot);
+            }
+        }
+
+        function updateDots(index) {
+            const dots = document.querySelectorAll('.dot');
+            dots.forEach(dot => dot.classList.remove('active'));
+            dots[index].classList.add('active');
+        }
+
+        function showSlide(index) {
+            slides.style.transform = `translateX(-${index * 100}%)`;
+            updateDots(index);
+        }
+
+        function nextSlide() {
+            currentIndex = (currentIndex + 1) % totalSlides;
+            showSlide(currentIndex);
+        }
+
+        function prevSlide() {
+            currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+            showSlide(currentIndex);
+        }
+
+        function goToSlide(index) {
+            currentIndex = index;
+            showSlide(currentIndex);
+        }
+
+        createDots();
+
+        // Auto play
+        setInterval(() => {
+            nextSlide();
+        }, 5000); // 5 segundos
+
+        // Modal adoção
+const modal = document.getElementById("adoptModal");
+const btn = document.getElementById("adoptBtn");
+const span = document.querySelector(".close");
+
+btn.onclick = () => modal.style.display = "block";
+span.onclick = () => modal.style.display = "none";
+window.onclick = (e) => {
+  if (e.target == modal) modal.style.display = "none";
+};
+
+    // Verifica se o formulário foi enviado com sucesso (via URL ?enviado=ok)
+window.onload = function () {
+  const params = new URLSearchParams(window.location.search);
+  if (params.get("enviado") === "ok") {
+    document.getElementById("mensagem-sucesso").style.display = "block";
+
+    // Limpa a URL para não exibir o parâmetro na barra
+    window.history.replaceState({}, document.title, window.location.pathname);
+  }
+};
+
+    </script>
+
+</body>
+
+</html>
+
+<!--DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dogs Pet Love</title>
+
+    <style>
+        html, body{
+            
+            background-image: url("img/bg/bg1.jpg");
+            background-repeat: repeat;
+            background-size:inherit;
+            background-position: center;
+        }
+    </style>
+</head>
+
+<body>
+    
+</body>
+</html>
